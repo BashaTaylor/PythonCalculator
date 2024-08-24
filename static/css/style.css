@@ -1,0 +1,198 @@
+body {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top */
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+h3 {
+    color: whitesmoke;
+}
+
+.calculator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    z-index: 1; /* Ensure the calculator is above the background image */
+}
+
+.calculator input {
+    width: 298px;
+    height: 40px;
+    font-size: 20px;
+    text-align: right;
+    margin-bottom: 10px;
+    border-radius: 20px; /* Rounded corners */
+}
+
+
+.calculator-btn {
+    color: whitesmoke; /* White text */
+    padding: 15px; /* Padding */
+    border: none; /* Remove border */
+    border-radius: 20px; /* Rounded corners */
+    margin: 8px;
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 15px; /* Smaller text */
+    width: 65px; /* Fixed width */
+    height: 65px; /* Fixed height */
+    display: inline-block; /* Align with form */
+    background: linear-gradient(to bottom, #15801e, #042b0e); /* Gradient background */
+    transition: box-shadow 0.2s, transform 0.2s; /* Animation on hover */
+}
+
+.calculator-btn:hover {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Slightly deeper shadow */
+    transform: translateY(-2px); /* Slight lift */
+}
+
+.calculator-btn:active {
+    transform: translateY(0); /* No lift */
+}
+
+.calculator-btn2 {
+    color: whitesmoke; /* White text */
+    padding: 15px; /* Padding */
+    margin: 8px;
+    border: none; /* Remove border */
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 15px; /* Smaller text */
+    width: 65px; /* Fixed width */
+    height: 155px; /* Fixed height */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* 3D shadow */
+    background: linear-gradient(to bottom, #15801e, #042b0e); /* Gradient background */
+    transition: box-shadow 0.2s, transform 0.2s; /* Animation on hover */
+    display: block;
+}
+
+.calculator-btn2:hover {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Slightly deeper shadow */
+    transform: translateY(-2px); /* Slight lift */
+}
+
+.calculator-btn2:active {
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); /* Even deeper shadow */
+    transform: translateY(0); /* No lift */
+}
+
+.result {
+    position: sticky; /* Make the frame sticky */
+    top: 510px; /* Adjust this value to match the height of your header */
+    z-index: 2; /* Ensure the frame stays above other content */
+    
+    transition: box-shadow 0.2s, transform 0.2s; /* Animation on hover */
+    border-radius: 5px;
+    padding: 7px;
+    color: white;
+    font-size: 16px;
+}
+
+.result:hover {
+    box-shadow: 2px 2px 4px rgba(150, 149, 149, 0.533); /* Slightly deeper shadow */
+    transform: translateY(-2px); /* Slight lift */
+}
+
+.result:active {
+    box-shadow: 1px 1px 2px rgba(141, 140, 140, 0.4); /* Even deeper shadow */
+    transform: translateY(0); /* No lift */
+}
+
+
+table {
+    margin: 0 auto;
+}
+
+button {
+    width: 100%;
+}
+
+.clear-history-btn {
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(to bottom, #15801e, #042b0e); /* Gradient background */
+    color: whitesmoke;
+    border: none; /* Remove border */
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.clear-history-btn:hover {
+    background-color: #0a0ed1;
+    
+    transform: translateY(-2px); /* Slight lift */
+}
+
+.clear-history-btn:active {
+    box-shadow: 1px 1px 2px rgba(130, 128, 128, 0.3); /* Even deeper shadow */
+    transform: translateY(0); /* No lift */
+}
+
+.history {
+    text-align: center;
+    color: lightgreen;
+    font-weight: bolder;
+    padding: 10px;
+    
+    width: 100%;
+    max-width: 400px;
+    margin: 35px 0 55px;
+    position: sticky; /* Make the history sticky */
+    top: 565px; /* Adjust this value to ensure it stays below the frame */
+    z-index: 1; /* Ensure the history stays below the frame */
+    max-height: 40vh; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Hide list bullets in history */
+.history ul {
+    list-style-type: none;
+    padding: 0;
+    color: whitesmoke;
+}
+
+#display {
+    background-color: #f0f0f0; /* Example background color */
+    font-size: 2em; /* Example font size */
+    text-align: right; /* Right align text */
+    border: none; /* Remove border */
+    padding: 10px; /* Add padding */
+    margin-top: 65px;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+#bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+    object-fit: contain; /* Ensure the entire video is visible */
+}

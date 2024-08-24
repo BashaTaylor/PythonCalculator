@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Calculator</title>
+    <!-- Default Theme -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <!-- Video Background -->
+<video autoplay mute loop preload id="bg-video">
+    <source src="{{ url_for('static', filename='video/numbers.mp4') }}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+    <div class="calculator">
+        <div class="frame">
+            <form method="post" action="/">
+                {{ form.hidden_tag() }}
+                <label for="display" class="visually-hidden">Calculator Display</label>
+                <input type="text" id="display" name="expression" value="{{ result or '' }}" readonly placeholder="0">
+
+                <table>
+                    <tr>
+                        <td><button type="button" class="calculator-btn" onclick="clearDisplay()" title="Clear">C</button></td>
+                        <td><button type="button" class="calculator-btn" onclick="calculatePercentage()" title="Percentage">%</button></td>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('/')">/</button></td>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('*')">*</button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('7')">7</button></td>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('8')">8</button></td>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('9')">9</button></td>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('-')">-</button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('4')">4</button></td>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('5')">5</button></td>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('6')">6</button></td>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('+')">+</button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('1')">1</button></td>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('2')">2</button></td>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('3')">3</button></td>
+                        <td rowspan="2"><button type="submit" class="calculator-btn2" title="Calculate">=</button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" class="calculator-btn calculator-btn-back" onclick="backspace()" title="Backspace">
+                                <img src="{{ url_for('static', filename='images/back_btn22.svg') }}" alt="Back" class="back-button-icon">
+                            </button></td>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('0')">0</button></td>
+                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('.')">.</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <br><br><br>
+        {% if result is not none %}
+        <div class="result">Result: {{ result }}</div>
+        {% endif %}
+        <div class="history">
+            <h3>Calculation History</h3>
+            {% if calculations %}
+            <ul>
+                {% for calculation in calculations %}
+                <li>{{ calculation.expression }} = {{ calculation.result }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No history available.</p>
+            {% endif %}
+        </div>
+
+        <form method="post" action="{{ url_for('clear_history') }}">
+            {{ form.hidden_tag() }}
+            <button type="submit" class="clear-history-btn" title="Clear History">Clear History</button>
+        </form>
+    </div>
+    
+
+    <!-- Link to the JavaScript file -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
