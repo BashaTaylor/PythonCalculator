@@ -151,7 +151,7 @@ button {
     padding: 10px;
     width: 100%;
     max-width: 400px;
-    margin-bottom: 55px;
+    margin-bottom: 25px;
     position: sticky; /* Make the history sticky */
     top: 565px; /* Adjust this value to ensure it stays below the frame */
     z-index: 1; /* Ensure the history stays below the frame */

@@ -1,14 +1,31 @@
 function appendToDisplay(value) {
-    document.getElementById('display').value += value;
+    var display = document.getElementById('display');
+    display.value += value;
 }
 
 function clearDisplay() {
-    document.getElementById('display').value = '';
+    var display = document.getElementById('display');
+    display.value = '';
 }
 
 function backspace() {
     var display = document.getElementById('display');
     display.value = display.value.slice(0, -1);
+}
+
+function formatNumberWithCommas(number) {
+    // Ensure the number is a valid number
+    if (isNaN(number)) {
+        return number;
+    }
+
+    // Round the number to two decimal places
+    number = parseFloat(number).toFixed(2);
+
+    // Add commas for thousands
+    const [integerPart, decimalPart] = number.split('.');
+    const formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return `${formattedIntegerPart}.${decimalPart}`;
 }
 
 function calculate() {
@@ -20,15 +37,21 @@ function calculate() {
         // Perform the calculation
         result = eval(expression);
 
-        // Round the result to 2 decimal places and format with commas
-        result = (Math.round(result * 100) / 100).toFixed(2);
-
-        // Update the display with the formatted result
-        display.value = result;
+        // Check if the result is a number
+        if (typeof result === 'number' && !isNaN(result)) {
+            // Round to 2 decimal places and format with commas
+            result = formatNumberWithCommas(result);
+            display.value = result;
+        } else {
+            display.value = 'Error';
+        }
     } catch (error) {
         display.value = 'Error';
+        console.error('Calculation Error:', error);
     }
 }
+
+
 
 
 function calculatePercentage() {
@@ -49,24 +72,4 @@ function calculatePercentage() {
         expression = expression.replace(/(\d+\.?\d*)$/, percentage.toString());
         display.value = expression;
     }
-}
-
-var bgVideo = document.getElementById('bg-video');
-if (window.innerWidth <= 768) { // Adjust the width based on your design
-    bgVideo.src = "{{ url_for('static', filename='video/numbers-mobile.mp4') }}";
-}
-
-function formatNumber(number) {
-    // Ensure number is a string with 2 decimal places
-    number = Number(number).toFixed(2);
-
-    // Add commas for thousands
-    var parts = number.split('.');
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return parts.join('.');
-}
-
-function updateDisplay(result) {
-    const display = document.getElementById('display');
-    display.value = formatNumber(result);
 }

@@ -57,6 +57,19 @@ def calculate():
     # Return the result to the client
     return render_template('index.html', result=formatted_result, calculations=calculations)
 
+@app.route("/", methods=["GET", "POST"])
+def index():
+    result = ""
+    if request.method == "POST":
+        expression = request.form.get("expression")
+        try:
+            # Perform the calculation
+            result = eval(expression)
+            # Round the result to 2 decimal places
+            result = round(result, 2)
+        except Exception as e:
+            result = f"Error: {e}"
+    return render_template("calculator.html", result=result)
 
 @app.route('/clear_history', methods=['POST'])
 def clear_history():
