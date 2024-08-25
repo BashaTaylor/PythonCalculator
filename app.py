@@ -2,12 +2,12 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_wtf import CSRFProtect
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
+import os
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'fallback_key')  # Use a fallback key for local development
 
-# app.config['SECRET_KEY'] = 'your-secret-key'  
-# Replace with a strong secret key
 csrf = CSRFProtect(app)
 
 class CalculatorForm(FlaskForm):
