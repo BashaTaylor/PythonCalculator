@@ -52,7 +52,7 @@ h3 {
     width: 65px; /* Fixed width */
     height: 65px; /* Fixed height */
     display: inline-block; /* Align with form */
-    background: linear-gradient(to bottom, #15801e, #042b0e); /* Gradient background */
+    background: linear-gradient(to bottom, #41b54b, #031b09); /* Gradient background */
     transition: box-shadow 0.2s, transform 0.2s; /* Animation on hover */
 }
 
@@ -76,7 +76,7 @@ h3 {
     width: 65px; /* Fixed width */
     height: 155px; /* Fixed height */
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* 3D shadow */
-    background: linear-gradient(to bottom, #15801e, #042b0e); /* Gradient background */
+    background: linear-gradient(to bottom, #41b54b, #031b09); /* Gradient background */
     transition: box-shadow 0.2s, transform 0.2s; /* Animation on hover */
     display: block;
 }
@@ -125,7 +125,7 @@ button {
 .clear-history-btn {
     width: 100%;
     padding: 20px;
-    background: linear-gradient(to bottom, #69e273, #042b0e); /* Gradient background */
+    background: linear-gradient(to bottom, #41b54b, #031b09); /* Gradient background */
     color: whitesmoke;
     border: none; /* Remove border */
     border-radius: 20px;
