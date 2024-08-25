@@ -3,8 +3,11 @@ from flask_wtf import CSRFProtect
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key'  # Replace with a strong secret key
+
+# app.config['SECRET_KEY'] = 'your-secret-key'  
+# Replace with a strong secret key
 csrf = CSRFProtect(app)
 
 class CalculatorForm(FlaskForm):
