@@ -164,7 +164,8 @@ button {
 .history ul {
     list-style-type: none;
     padding: 0;
-    color: whitesmoke;
+    color: lightgreen;
+    font-weight: bolder;
 }
 
 #display {
