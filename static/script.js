@@ -11,14 +11,6 @@ function backspace() {
     display.value = display.value.slice(0, -1);
 }
 
-// function calculatePercentage() {
-//     var display = document.getElementById('display');
-//     var currentValue = parseFloat(display.value);
-//     if (!isNaN(currentValue)) {
-//         display.value = (currentValue / 100).toString();
-//     }
-// }
-
 function calculatePercentage() {
     const display = document.getElementById('display');
     let expression = display.value;
@@ -39,4 +31,8 @@ function calculatePercentage() {
     }
 }
 
+var bgVideo = document.getElementById('bg-video');
+if (window.innerWidth <= 768) { // Adjust the width based on your design
+    bgVideo.src = "{{ url_for('static', filename='video/numbers-mobile.mp4') }}";
+}
 
