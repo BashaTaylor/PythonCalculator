@@ -4,7 +4,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 import os
 
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'fallback_key')  # Use a fallback key for local development
 
@@ -26,6 +25,8 @@ def calculator():
             expression = form.expression.data
             try:
                 result = eval(expression)
+                # Format result to 2 decimal places and add commas
+                result = "{:,.2f}".format(result)
                 calculations.append({'expression': expression, 'result': result})
             except Exception as e:
                 result = 'Error'
@@ -33,29 +34,6 @@ def calculator():
             calculations.clear()
         return redirect(url_for('calculator'))
     return render_template('calculator.html', form=form, result=result, calculations=calculations)
-
-@app.route('/', methods=['POST'])
-def calculate():
-    expression = request.form['expression']
-
-    try:
-        # Evaluate the expression
-        result = eval(expression)
-
-        # Format result to 2 decimal places
-        formatted_result = f"{result:.2f}"
-
-        # Store the calculation and result
-        calculations.append({
-            'expression': expression,
-            'result': formatted_result
-        })
-
-    except Exception as e:
-        formatted_result = "Error"
-
-    # Return the result to the client
-    return render_template('index.html', result=formatted_result, calculations=calculations)
 
 @app.route("/", methods=["GET", "POST"])
 def index():

@@ -19,12 +19,16 @@ function formatNumberWithCommas(number) {
         return number;
     }
 
-    // Round the number to two decimal places
-    number = parseFloat(number).toFixed(2);
+    // Round to two decimal places
+    number = Number(number).toFixed(2);
 
-    // Add commas for thousands
+    // Split the number into integer and decimal parts
     const [integerPart, decimalPart] = number.split('.');
+
+    // Format the integer part with commas
     const formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // Return the formatted number
     return `${formattedIntegerPart}.${decimalPart}`;
 }
 
@@ -36,11 +40,13 @@ function calculate() {
     try {
         // Perform the calculation
         result = eval(expression);
+        console.log('Raw Result:', result);
 
-        // Check if the result is a number
+        // Ensure the result is a number and not NaN
         if (typeof result === 'number' && !isNaN(result)) {
             // Round to 2 decimal places and format with commas
             result = formatNumberWithCommas(result);
+            console.log('Formatted Result:', result);
             display.value = result;
         } else {
             display.value = 'Error';
@@ -50,9 +56,6 @@ function calculate() {
         console.error('Calculation Error:', error);
     }
 }
-
-
-
 
 function calculatePercentage() {
     var display = document.getElementById('display');
