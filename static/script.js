@@ -12,34 +12,36 @@ function backspace() {
 }
 
 function calculate() {
-    let expression = document.getElementById('expression').value;
-    let result;
+    var display = document.getElementById('display');
+    var expression = display.value;
+    var result;
 
     try {
         // Perform the calculation
         result = eval(expression);
 
-        // Round the result to 2 decimal places
-        result = Math.round(result * 100) / 100;
+        // Round the result to 2 decimal places and format with commas
+        result = (Math.round(result * 100) / 100).toFixed(2);
 
-        document.getElementById('result').innerText = result;
+        // Update the display with the formatted result
+        display.value = result;
     } catch (error) {
-        document.getElementById('result').innerText = 'Error';
+        display.value = 'Error';
     }
 }
 
 
 function calculatePercentage() {
-    const display = document.getElementById('display');
-    let expression = display.value;
+    var display = document.getElementById('display');
+    var expression = display.value;
 
     console.log('Original Expression:', expression);
 
-    const lastNumberMatch = expression.match(/(\d+\.?\d*)$/);
+    var lastNumberMatch = expression.match(/(\d+\.?\d*)$/);
 
     if (lastNumberMatch) {
-        const lastNumber = parseFloat(lastNumberMatch[0]);
-        const percentage = lastNumber / 100;
+        var lastNumber = parseFloat(lastNumberMatch[0]);
+        var percentage = lastNumber / 100;
 
         console.log('Last Number:', lastNumber);
         console.log('Calculated Percentage:', percentage);
@@ -55,18 +57,16 @@ if (window.innerWidth <= 768) { // Adjust the width based on your design
 }
 
 function formatNumber(number) {
-    // Round to two decimal places
-    number = parseFloat(number).toFixed(2);
+    // Ensure number is a string with 2 decimal places
+    number = Number(number).toFixed(2);
 
     // Add commas for thousands
-    const parts = number.split('.');
+    var parts = number.split('.');
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join('.');
 }
 
-// Update the display with the formatted result
 function updateDisplay(result) {
-    const display = document.getElementById('result-display');
+    const display = document.getElementById('display');
     display.value = formatNumber(result);
 }
-

@@ -125,7 +125,7 @@ button {
 .clear-history-btn {
     width: 100%;
     padding: 20px;
-    background: linear-gradient(to bottom, #15801e, #042b0e); /* Gradient background */
+    background: linear-gradient(to bottom, #69e273, #042b0e); /* Gradient background */
     color: whitesmoke;
     border: none; /* Remove border */
     border-radius: 20px;
@@ -146,12 +146,12 @@ button {
 
 .history {
     text-align: center;
-    color: lightgreen;
+    color: rgb(154, 237, 154);
     font-weight: bolder;
     padding: 10px;
     width: 100%;
     max-width: 400px;
-    margin: 25px 0 55px;
+    margin-bottom: 55px;
     position: sticky; /* Make the history sticky */
     top: 565px; /* Adjust this value to ensure it stays below the frame */
     z-index: 1; /* Ensure the history stays below the frame */

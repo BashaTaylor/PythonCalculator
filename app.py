@@ -34,27 +34,28 @@ def calculator():
         return redirect(url_for('calculator'))
     return render_template('calculator.html', form=form, result=result, calculations=calculations)
 
-@app.route('/calculate', methods=['POST'])
+@app.route('/', methods=['POST'])
 def calculate():
     expression = request.form['expression']
 
     try:
-        # Perform the calculation
+        # Evaluate the expression
         result = eval(expression)
 
-        # Format the result to 2 decimal places
-        formatted_result = "{:.2f}".format(result)
+        # Format result to 2 decimal places
+        formatted_result = f"{result:.2f}"
 
-        # Add the formatted result to the history
-        calculations.append(f"{expression} = {formatted_result}")
+        # Store the calculation and result
+        calculations.append({
+            'expression': expression,
+            'result': formatted_result
+        })
 
     except Exception as e:
         formatted_result = "Error"
 
-    return render_template('calculator.html', result=formatted_result, calculations=calculations)
-
-
-
+    # Return the result to the client
+    return render_template('index.html', result=formatted_result, calculations=calculations)
 
 
 @app.route('/clear_history', methods=['POST'])
