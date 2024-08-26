@@ -4,87 +4,78 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Calculator</title>
-    <!-- Default Theme -->
+    <title>My Python/Flask Calculator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
     <!-- Video Background -->
-    <video autoplay muted loop preload id="bg-video">
-        <source src="{{ url_for('static', filename='video/numbers.mp4') }}" type="video/mp4">
-        <source src="{{ url_for('static', filename='video/numbers.webm') }}" type="video/webm">
+    <video id="bg-video" autoplay muted loop>
+        <source src="{{ url_for('static', filename='videos/numbers.mp4') }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-    
+
     <div class="calculator">
         <div class="frame">
             <form method="post" action="/">
-                {{ form.hidden_tag() }}
-                <label for="display" class="visually-hidden">Calculator Display</label>
-                <input type="text" id="display" name="expression" value="{{ result or '' }}" readonly placeholder="0">
+                <!-- Hidden field to store the expression -->
+                <input type="hidden" id="expression" name="expression" value="{{ expression or '' }}">
+
+                <!-- Display the current expression -->
+                <input type="text" id="display" name="display" value="{{ result or expression or '0' }}" readonly>
 
                 <table>
                     <tr>
-                        <td><button type="button" class="calculator-btn" onclick="clearDisplay()" title="Clear">C</button></td>
-                        <td><button type="button" class="calculator-btn" onclick="calculatePercentage()" title="Percentage">%</button></td>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('/')">/</button></td>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('*')">*</button></td>
+                        <td><button type="submit" name="button" value="C" class="calculator-btn">C</button></td>
+                        <td><button type="submit" name="button" value="%" class="calculator-btn">%</button></td>
+                        <td><button type="submit" name="button" value="/" class="calculator-btn">/</button></td>
+                        <td><button type="submit" name="button" value="*" class="calculator-btn">*</button></td>
                     </tr>
                     <tr>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('7')">7</button></td>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('8')">8</button></td>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('9')">9</button></td>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('-')">-</button></td>
+                        <td><button type="submit" name="button" value="7" class="calculator-btn">7</button></td>
+                        <td><button type="submit" name="button" value="8" class="calculator-btn">8</button></td>
+                        <td><button type="submit" name="button" value="9" class="calculator-btn">9</button></td>
+                        <td><button type="submit" name="button" value="-" class="calculator-btn">-</button></td>
                     </tr>
                     <tr>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('4')">4</button></td>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('5')">5</button></td>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('6')">6</button></td>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('+')">+</button></td>
+                        <td><button type="submit" name="button" value="4" class="calculator-btn">4</button></td>
+                        <td><button type="submit" name="button" value="5" class="calculator-btn">5</button></td>
+                        <td><button type="submit" name="button" value="6" class="calculator-btn">6</button></td>
+                        <td><button type="submit" name="button" value="+" class="calculator-btn">+</button></td>
                     </tr>
                     <tr>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('1')">1</button></td>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('2')">2</button></td>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('3')">3</button></td>
-                        <td rowspan="2"><button type="submit" class="calculator-btn2" title="Calculate">=</button></td>
+                        <td><button type="submit" name="button" value="1" class="calculator-btn">1</button></td>
+                        <td><button type="submit" name="button" value="2" class="calculator-btn">2</button></td>
+                        <td><button type="submit" name="button" value="3" class="calculator-btn">3</button></td>
+                        <td rowspan="2"><button type="submit" name="button" value="=" class="calculator-btn2">=</button>
+                        </td>
                     </tr>
                     <tr>
-                        <td><button type="button" class="calculator-btn calculator-btn-back" onclick="backspace()" title="Backspace">
-                                <img src="{{ url_for('static', filename='images/back_btn22.svg') }}" alt="Back" class="back-button-icon">
+                        <td><button type="submit" name="button" value="Backspace"
+                                class="calculator-btn calculator-btn-back">
+                                <img src="{{ url_for('static', filename='images/back_btn22.svg') }}" alt="Back">
                             </button></td>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('0')">0</button></td>
-                        <td><button type="button" class="calculator-btn" onclick="appendToDisplay('.')">.</button></td>
+                        <td><button type="submit" name="button" value="0" class="calculator-btn">0</button></td>
+                        <td><button type="submit" name="button" value="." class="calculator-btn">.</button></td>
                     </tr>
                 </table>
             </form>
         </div>
-        <br><br><br>
         {% if result %}
         <div class="result">Result: {{ result }}</div>
         {% endif %}
+        <h3>Calculation History</h3>
         <div class="history">
-            <h3>Calculation History</h3>
-            {% if calculations %}
             <ul>
-                {% for calculation in calculations %}
-                <li>{{ calculation.expression }} = {{ calculation.result }}</li>
+                {% for calc in calculations %}
+                <li>{{ calc.expression }} = {{ calc.result }} </li>
                 {% endfor %}
             </ul>
-            {% else %}
-            <p>No history available.</p>
-            {% endif %}
         </div>
-
-        <form method="post" action="{{ url_for('clear_history') }}">
-            {{ form.hidden_tag() }}
-            <button type="submit" class="clear-history-btn" title="Clear History">Clear History</button>
+        <form method="post" action="/clear-history">
+            <button type="submit" class="clear-history-btn">Clear History</button>
         </form>
     </div>
-
-
-    <!-- Link to the JavaScript file -->
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 
 </html>

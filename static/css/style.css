@@ -19,6 +19,8 @@ body::before {
 
 h3 {
     color: whitesmoke;
+    font-weight:lighter;
+    margin-bottom: 5px;
 }
 
 .calculator {
@@ -95,12 +97,13 @@ h3 {
     position: sticky; /* Make the frame sticky */
     top: 510px; /* Adjust this value to match the height of your header */
     z-index: 2; /* Ensure the frame stays above other content */
-    
+    margin-top: 25px;
     transition: box-shadow 0.2s, transform 0.2s; /* Animation on hover */
     border-radius: 5px;
     padding: 7px;
-    color: white;
-    font-size: 16px;
+    color: rgb(154, 237, 154);
+    font-size: 22px;
+    font-weight: bolder;
 }
 
 .result:hover {
